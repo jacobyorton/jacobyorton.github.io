@@ -37,21 +37,36 @@
                 transition: all 0.4s ease 0s;
             }
 
-            #iframeoutput {
-		min-width: 300px;
-                width: 90%;
+            .iframeoutput {
+		        min-width: 300px;
+                width: 95%;
                 height: auto;
                 margin: 20px auto;
             }
+
+            .iframeweb {
+                width: 375px;
+                height: 667px;
+                margin: 20px auto;
+            }
+
+            .floating {
+                float: left;
+                width: 30%;
+                min-width: 375px;
+                margin-right: 10px;
+            }
+
         </style>
     </head>
 
     <body>
-        <h1>IAS Info</h1>
+        <h1>Site Review Assistant</h1>
         <h5>Created By: Jacob Yorton</h5>
+        <p>This will display the IAS results and six pages from the site in phone view. The first page is the home page for a quick review of the site. The others are common URLs to find the publisher's name and email address. Doing a search in browser (CTRL+F or CMD+F) for the character "@" will search all the pages and help find potential email addresses.</p> 
         <form id="siteInfo">
             <input id="input" type="text" placeholder="Insert site URL here" name="siteName">
-            <button id="button">Get IAS Info!</button>
+            <button id="button">GO!</button>
         </form>
 
         <div id="output" style="margin-top: 20px; white-space: pre-line;">
@@ -74,7 +89,37 @@
                 const name = siteInfo.siteName
                 document.querySelector('div#output').innerHTML = `
                 ${name}
-                <iframe id="iframeoutput" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe>
+                <iframe class="iframeoutput" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe>
+                
+                <div class = "floating">
+                ${name}
+                <iframe class="iframeweb" src="https://${name}"></iframe>
+                </div>
+
+                <div class = "floating">
+                ${name}/about
+                <iframe class="iframeweb" src="https://${name}/about"></iframe>
+                </div>
+                
+                <div class = "floating">
+                ${name}/about-me
+                <iframe class="iframeweb" src="https://${name}/about-me"></iframe>
+                </div>
+                
+                <div class = "floating">
+                ${name}/contact
+                <iframe class="iframeweb" src="https://${name}/contact"></iframe>
+                </div>
+                
+                <div class = "floating">
+                ${name}/contact-us
+                <iframe class="iframeweb" src="https://${name}/contact-us"></iframe>
+                </div>
+                
+                <div class = "floating">
+                ${name}/privacy-policy
+                <iframe class="iframeweb" src="https://${name}/privacy-policy"></iframe>
+                </div>
                 `
             }
 	    </script>
