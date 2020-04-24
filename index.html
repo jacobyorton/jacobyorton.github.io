@@ -44,16 +44,16 @@
                 margin: 20px auto;
             }
 
-            .iframeweb {
-                width: 375px;
-                height: 667px;
-                margin: 20px auto;
-            }
-
             .device-desktop {
                 width: 90%;
-                min-width: 375px;
+                min-width: 1024px;
                 margin: 20px;
+            }
+
+            .iframedesktop {
+                width: 90%;
+                min-width: 1024px;
+                height: 768px;
             }
 
             .device-phone {
@@ -61,6 +61,12 @@
                 width: 30%;
                 min-width: 375px;
                 margin-right: 20px;
+            }
+
+            .iframephone {
+                width: 375px;
+                height: 667px;
+                margin: 20px auto;
             }
 
         </style>
@@ -100,37 +106,37 @@
                 
                 <div class = "device-desktop">
                 ${name}
-                <iframe class="iframeoutput" src="https://${name}"></iframe>
+                <iframe class="iframedesktop" src="https://${name}"></iframe>
                 </div>
 
                 <div class = "device-phone">
                 ${name}/about
-                <iframe class="iframeweb" src="https://${name}/about"></iframe>
+                <iframe class="iframephone" src="https://${name}/about"></iframe>
                 </div>
                 
                 <div class = "device-phone">
                 ${name}/about-me
-                <iframe class="iframeweb" src="https://${name}/about-me"></iframe>
+                <iframe class="iframephone" src="https://${name}/about-me"></iframe>
                 </div>
 
                 <div class = "device-phone">
                 ${name}/about-us
-                <iframe class="iframeweb" src="https://${name}/about-us"></iframe>
+                <iframe class="iframephone" src="https://${name}/about-us"></iframe>
                 </div>
                 
                 <div class = "device-phone">
                 ${name}/contact
-                <iframe class="iframeweb" src="https://${name}/contact"></iframe>
+                <iframe class="iframephone" src="https://${name}/contact"></iframe>
                 </div>
                 
                 <div class = "device-phone">
                 ${name}/contact-us
-                <iframe class="iframeweb" src="https://${name}/contact-us"></iframe>
+                <iframe class="iframephone" src="https://${name}/contact-us"></iframe>
                 </div>
                 
                 <div class = "device-phone">
                 ${name}/privacy-policy
-                <iframe class="iframeweb" src="https://${name}/privacy-policy"></iframe>
+                <iframe class="iframephone" src="https://${name}/privacy-policy"></iframe>
                 </div>
                 `
             }
