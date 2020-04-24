@@ -50,11 +50,17 @@
                 margin: 20px auto;
             }
 
-            .floating {
+            .device-desktop {
+                width: 90%;
+                min-width: 375px;
+                margin: 20px;
+            }
+
+            .device-phone {
                 float: left;
                 width: 30%;
                 min-width: 375px;
-                margin-right: 10px;
+                margin-right: 20px;
             }
 
         </style>
@@ -63,7 +69,8 @@
     <body>
         <h1>Site Review Assistant</h1>
         <h5>Created By: Jacob Yorton</h5>
-        <p style="font-size: 12px; font-style: italic;">This will display the IAS results and six pages from the site in phone view. The first page is the home page for a quick review of the site. The others are common URLs to find the publisher's name and email address. Doing a search in browser (CTRL+F or CMD+F) for the character "@" will search all the pages and help find potential email addresses.</p> 
+        <p style="font-size: 12px; font-style: italic; width: 90%;">This will display the IAS results, the home page in desktop view, and several pages from the site in phone view to find the publisher's name and email address. Doing a search in browser (CTRL+F or CMD+F) for the character "@" will search all the pages and help find potential email addresses.</p>
+        
         <form id="siteInfo">
             <input id="input" type="text" placeholder="Insert site URL here" name="siteName">
             <button id="button">GO!</button>
@@ -91,32 +98,37 @@
                 ${name}
                 <iframe class="iframeoutput" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe>
                 
-                <div class = "floating">
+                <div class = "device-desktop">
                 ${name}
                 <iframe class="iframeweb" src="https://${name}"></iframe>
                 </div>
 
-                <div class = "floating">
+                <div class = "device-phone">
                 ${name}/about
                 <iframe class="iframeweb" src="https://${name}/about"></iframe>
                 </div>
                 
-                <div class = "floating">
+                <div class = "device-phone">
                 ${name}/about-me
                 <iframe class="iframeweb" src="https://${name}/about-me"></iframe>
                 </div>
+
+                <div class = "device-phone">
+                ${name}/about-us
+                <iframe class="iframeweb" src="https://${name}/about-us"></iframe>
+                </div>
                 
-                <div class = "floating">
+                <div class = "device-phone">
                 ${name}/contact
                 <iframe class="iframeweb" src="https://${name}/contact"></iframe>
                 </div>
                 
-                <div class = "floating">
+                <div class = "device-phone">
                 ${name}/contact-us
                 <iframe class="iframeweb" src="https://${name}/contact-us"></iframe>
                 </div>
                 
-                <div class = "floating">
+                <div class = "device-phone">
                 ${name}/privacy-policy
                 <iframe class="iframeweb" src="https://${name}/privacy-policy"></iframe>
                 </div>
