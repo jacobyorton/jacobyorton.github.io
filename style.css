@@ -67,6 +67,7 @@ body {
 
 /* Tooltip container */
 .tooltip {
+  margin-top: 20px;
   position: relative;
   display: inline-block;
   background-color: lightseagreen;
@@ -75,15 +76,16 @@ body {
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 400px;
+  width: 450px;
   background-color: lightseagreen;
   color: #fff;
   text-align: left;
-  padding: 5px 0;
-  border-radius: 6px;
+  padding: 15px;
+  border-radius: 50px;
   font-size: 10px;
+  
  
-  /* Position the tooltip text - see examples below! */
+  /* Position the tooltip text */
   position: absolute;
   z-index: 1;
 }
