@@ -27,10 +27,10 @@
 
                 e.target.elements.siteName.value = ''
 
-                renderTags(siteInfo)
+                renderPages(siteInfo)
             })
 
-            const renderTags = function(siteInfo) {
+            const renderPages = function(siteInfo) {
                 const name = siteInfo.siteName
                 document.querySelector('div#output').innerHTML = `
                 ${name}
@@ -72,6 +72,6 @@
                 </div>
                 `
             }
-	    </script>
+	</script>
     </body>
 </html>
