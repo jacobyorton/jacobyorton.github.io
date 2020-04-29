@@ -49,9 +49,9 @@
             const renderPages = function(siteInfo) {
                 const name = siteInfo.siteName
                 document.querySelector('div#output').innerHTML = `
-                ${name}
-                <iframe class="iframeoutput" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe>
-                
+                ${name} IAS and ads.txt
+                <iframe class="iframeoutput" style="width: 60%; margin-right: 5px;" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe><iframe class="iframeoutput" style="width: 30%;" src="https://${name}/ads.txt"></iframe>                
+
                 <div class = "device-desktop">
                 ${name}
                 <iframe class="iframedesktop" src="https://${name}"></iframe>
