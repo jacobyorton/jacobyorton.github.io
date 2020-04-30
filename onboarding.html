@@ -49,6 +49,12 @@
             const renderPages = function(siteInfo) {
                 const name = siteInfo.siteName
                 document.querySelector('div#output').innerHTML = `
+		
+                <div class = "device-desktop">
+                The REAL reason you're here
+                <iframe class="iframedesktop" src="http://patorjk.com/games/snake/"></iframe>
+                </div>		
+
 		${name} IAS and ads.txt
                 <iframe class="iframeoutput" style="width: 64%; margin-right: 5px;" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe><iframe class="iframeoutput" style="width: 30%;" src="https://${name}/ads.txt"></iframe>                
              
@@ -105,11 +111,6 @@
                 <div class = "device-phone">
                 ${name}/privacy-policy
                 <iframe class="iframephone" src="https://${name}/privacy-policy"></iframe>
-                </div>
-
-		<div class = "device-phone">
-                The REAL reason why you're here
-                <iframe class="iframephone" src="https://playsnake.org"></iframe>
                 </div>
                 `
             }
