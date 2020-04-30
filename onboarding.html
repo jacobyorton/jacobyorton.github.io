@@ -11,11 +11,27 @@
         
         <form id="siteInfo">
             <input id="input" type="text" placeholder="Insert home page naked URL here (example: google.com)" name="siteName">
-            <button id="button">GO!</button>
+            <button id="button" class="button">GO!</button>
         </form>
-
+	    
+	<div class="tooltip">Mouseover for minimum IAS scores
+		<span class="tooltiptext">
+			<p>ADT (Adult Content): must be 750+</p>
+			<p>DLM (Downloads and Piracy): must be 1000</p>
+			<p>DRG (Drugs): must be 750+</p>
+			<p>ALC (Alcohol): must be 600+</p>
+			<p>HAT (Hate Speech): must be 1000</p>
+			<p>VIO (Violence): must be 750+</p>
+			<p>OFF (Offensive language): must be 750+</p>
+			<p>SAM (Bots): must be 1000 (if lower, hold back for a few days and then re-check)</p>
+			<p>TRAQ (General Quality): must be 500+ (if lower, will require deeper review)</p>
+		</span>
+	</div>
+	    
         <div id="output" style="margin-top: 20px; white-space: pre-line;">
         </div>
+	    
+	<button onclick="topFunction()" id="myBtn" class="button" title="Go to top">Top</button>
 
         <script>
             document.querySelector('#siteInfo').addEventListener('submit', function(e) {
@@ -27,21 +43,78 @@
 
                 e.target.elements.siteName.value = ''
 
-                renderTags(siteInfo)
+                renderPages(siteInfo)
             })
 
-            const renderTags = function(siteInfo) {
+            const renderPages = function(siteInfo) {
                 const name = siteInfo.siteName
                 document.querySelector('div#output').innerHTML = `
-                ${name}
-                <iframe class="iframeoutput" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe>
-                
+
+                <div class = "device-desktop">
+                The reason why you're here
+                <iframe class="iframedesktop" src="https://slither.io"></iframe>
+                </div>
+
+
+                ${name} IAS and ads.txt
+                <iframe class="iframeoutput" style="width: 64%; margin-right: 5px;" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe><iframe class="iframeoutput" style="width: 30%;" src="https://${name}/ads.txt"></iframe>                
+             
                 <div class = "device-desktop">
                 ${name}
                 <iframe class="iframedesktop" src="https://${name}"></iframe>
                 </div>
+
+                <div class = "device-phone">
+                WhoIs
+                <iframe class="iframephone" src="https://www.whois.com/whois/${name}"></iframe>
+                </div>
+                
+                <div class = "device-phone">
+                BuiltWith
+                <iframe class="iframephone" src="https://builtwith.com/${name}"></iframe>
+                </div>
+                
+                <div class = "device-phone">
+                Hosting Checker
+                <iframe class="iframephone" src="https://hostingchecker.com/#${name}"></iframe>
+                </div>
+
+                <div class = "device-phone">
+                Find DNS Host Records (Subdomains)
+                <iframe class="iframephone" src="https://hackertarget.com/find-dns-host-records/"></iframe>
+                </div>
+
+                <div class = "device-phone">
+                ${name}/about
+                <iframe class="iframephone" src="https://${name}/about"></iframe>
+                </div>
+                
+                <div class = "device-phone">
+                ${name}/about-me
+                <iframe class="iframephone" src="https://${name}/about-me"></iframe>
+                </div>
+
+                <div class = "device-phone">
+                ${name}/about-us
+                <iframe class="iframephone" src="https://${name}/about-us"></iframe>
+                </div>
+                
+                <div class = "device-phone">
+                ${name}/contact
+                <iframe class="iframephone" src="https://${name}/contact"></iframe>
+                </div>
+                
+                <div class = "device-phone">
+                ${name}/contact-us
+                <iframe class="iframephone" src="https://${name}/contact-us"></iframe>
+                </div>
+                
+                <div class = "device-phone">
+                ${name}/privacy-policy
+                <iframe class="iframephone" src="https://${name}/privacy-policy"></iframe>
+                </div>
                 `
             }
-	    </script>
+	</script>
     </body>
 </html>
