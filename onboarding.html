@@ -48,11 +48,12 @@
             const renderPages = function(siteInfo) {
                 const name = siteInfo.siteName
                 document.querySelector('div#output').innerHTML = `
-		
+		<!--
                 <div class = "device-desktop">
                 <a href="https://gulper.io" target="_blank">The REAL reason you're here</a>
                 <iframe class="iframedesktop" src="https://gulper.io"></iframe>
-                </div>		
+                </div>
+		-->
 
 		${name} IAS and ads.txt
                 <iframe class="iframeoutput" style="width: 64%; margin-right: 5px;" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe><iframe class="iframeoutput" style="width: 30%;" src="https://${name}/ads.txt"></iframe>                
