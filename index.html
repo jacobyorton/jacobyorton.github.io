@@ -3,11 +3,19 @@
   data-color-mode="auto" data-dark-theme="dark"
   data-a11y-animated-images="system" data-a11y-link-underlines="true"
 >
-   
+<head>  
    <meta name="robots" content="noindex">
    <script src="https://cdn.jsdelivr.net/gh/clappr/clappr@latest/dist/clappr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/clappr/dash-shaka-playback@latest/dist/dash-shaka-playback.js"></script>
-
+</head>
+<body>
+	<p>
+		<a href="https://mlbwebcast.com/stream/brewers.html">Source</a>
+	</p>
+	<p>
+		<a href="https://mlbwebcast.com/stream/brewers1.html">Alt 1</a>
+		<a href="https://mlbwebcast.com/stream/brewers2.html">Alt 2</a>
+	</p>
     <div id="player"></div>
     <script>
       var player = new Clappr.Player(
@@ -31,4 +39,5 @@
           parentId: '#player'
         });
     </script>
+</body>
 </html>
