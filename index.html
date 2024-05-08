@@ -1,94 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-	<link rel='stylesheet' id='stylesheet'  href='https://jacobyorton.github.io/style.css' type='text/css' media='all' />
-	<script src='https://jacobyorton.github.io/scripts.js'></script>
-    </head>
-
-    <body>
-        <h1>Site Review Assistant</h1>
-        <h5>Created By: Jacob Yorton</h5>
-        <p style="font-size: 12px; font-style: italic; width: 90%;">This will display the IAS results, the home page in desktop view, and several pages from the site in phone view to find the publisher's name and email address. Doing a search in browser (CTRL+F or CMD+F) for the character "@" will search all the pages and help find potential email addresses.</p>
-        
-        <form id="siteInfo">
-            <input id="input" type="text" placeholder="Insert home page naked URL here (example: google.com)" name="siteName">
-            <button id="button" class="button">GO!</button>
-        </form>
-	    
-	<div class="tooltip">Mouseover for minimum IAS scores
-		<span class="tooltiptext">
-			<p>ADT (Adult Content): must be 750+</p>
-			<p>DLM (Downloads and Piracy): must be 1000</p>
-			<p>DRG (Drugs): must be 750+</p>
-			<p>ALC (Alcohol): must be 600+</p>
-			<p>HAT (Hate Speech): must be 1000</p>
-			<p>VIO (Violence): must be 750+</p>
-			<p>OFF (Offensive language): must be 750+</p>
-			<p>SAM (Bots): must be 1000 (if lower, hold back for a few days and then re-check)</p>
-			<p>TRAQ (General Quality): must be 500+ (if lower, will require deeper review)</p>
-		</span>
-	</div>
-	    
-        <div id="output" style="margin-top: 20px; white-space: pre-line;">
-        </div>
-	    
-	<button onclick="topFunction()" id="myBtn" class="button" title="Go to top">Top</button>
-
-        <script>
-            document.querySelector('#siteInfo').addEventListener('submit', function(e) {
-                e.preventDefault()
-
-                siteInfo = {
-                    siteName: e.target.elements.siteName.value,
-                }
-
-                e.target.elements.siteName.value = ''
-
-                renderPages(siteInfo)
-            })
-
-            const renderPages = function(siteInfo) {
-                const name = siteInfo.siteName
-                document.querySelector('div#output').innerHTML = `
-                ${name} IAS and ads.txt
-                <iframe class="iframeoutput" style="width: 64%; margin-right: 5px;" src="https://api.adsafeprotected.com/db2/client/28824/itgrl.json?adsafe_url=${name}"></iframe><iframe class="iframeoutput" style="width: 30%;" src="https://${name}/ads.txt"></iframe>                
-
-                <div class = "device-desktop">
-                ${name}
-                <iframe class="iframedesktop" src="https://${name}"></iframe>
-                </div>
-
-                <div class = "device-phone">
-                ${name}/about
-                <iframe class="iframephone" src="https://${name}/about"></iframe>
-                </div>
-                
-                <div class = "device-phone">
-                ${name}/about-me
-                <iframe class="iframephone" src="https://${name}/about-me"></iframe>
-                </div>
-
-                <div class = "device-phone">
-                ${name}/about-us
-                <iframe class="iframephone" src="https://${name}/about-us"></iframe>
-                </div>
-                
-                <div class = "device-phone">
-                ${name}/contact
-                <iframe class="iframephone" src="https://${name}/contact"></iframe>
-                </div>
-                
-                <div class = "device-phone">
-                ${name}/contact-us
-                <iframe class="iframephone" src="https://${name}/contact-us"></iframe>
-                </div>
-                
-                <div class = "device-phone">
-                ${name}/privacy-policy
-                <iframe class="iframephone" src="https://${name}/privacy-policy"></iframe>
-                </div>
-                `
+<head>
+	<meta name="robots" content="noindex">
+	<script src="https://cdn.jsdelivr.net/gh/clappr/clappr@latest/dist/clappr.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/clappr/dash-shaka-playback@latest/dist/dash-shaka-playback.js"></script>
+</head>
+<body>
+    <div id="player"></div>
+    <script>
+      var player = new Clappr.Player(
+        {
+          source: 'https://nfr.psports.live:443/hdstreamlive/hdembed/379.m3u8',
+          
+          height: '99.5%',
+          width: '100%',
+          autoPlay: false,
+          playInline: true,
+          plugins: [DashShakaPlayback],
+          shakaConfiguration: {
+            preferredAudioLanguage: 'pt-BR',
+            streaming: {
+              rebufferingGoal: 15
             }
-	</script>
-    </body>
+          },
+          shakaOnBeforeLoad: function(shaka_player) {
+            // shaka_player.getNetworkingEngine().registerRequestFilter() ...
+          },
+          parentId: '#player'
+        });
+    </script>
+</body>
 </html>
