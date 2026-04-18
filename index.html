@@ -1,34 +1,110 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-   <style>
-       body { 
-         background: black; 
-         margin: 0;
-       }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Player</title>
 
-       .iframe-wrapper {
-         position: relative;
-         width: 100%;
-         padding-top: 56.25%; /* 16:9 */
-       }
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      height: 100%;
+      overflow: hidden;
+    }
 
-       .my-iframe {
-         position: absolute;
-         top: 0;
-         left: 0;
-         width: 100%;
-         height: 100%;
-         border: 0;
-       }
-   </style>
+    /* 16:9 responsive container */
+    .iframe-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .iframe-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: calc(100vh * (16 / 9));
+      max-height: calc(100vw * (9 / 16));
+      aspect-ratio: 16 / 9;
+    }
+
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 1;
+    }
+
+    /* Click shield (prevents accidental ad clicks) */
+    .click-blocker {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .click-blocker.hidden {
+      display: none;
+    }
+
+    /* Optional overlay button */
+    .play-overlay {
+      position: absolute;
+      z-index: 3;
+      color: white;
+      background: rgba(0,0,0,0.6);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-family: sans-serif;
+      cursor: pointer;
+    }
+
+    /* Your “nuclear” outer-page cleanup */
+    img, a {
+      display: none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="iframe-wrapper">
-        <iframe 
-          class="my-iframe" 
-          src="https://streamspass.net/mlb/brewers.html" 
-          allowfullscreen 
-          allow="fullscreen">
-        </iframe>
-    </div>
+
+<div class="iframe-wrapper">
+  <div class="iframe-inner">
+
+    <iframe
+      src="https://streamspass.net/mlb/brewers.html"
+      allow="fullscreen"
+      allowfullscreen
+      sandbox="allow-scripts allow-same-origin allow-presentation">
+    </iframe>
+
+    <div class="click-blocker" id="blocker"></div>
+
+    <div class="play-overlay" id="playBtn">Click to enable player</div>
+
+  </div>
+</div>
+
+<script>
+  const blocker = document.getElementById('blocker');
+  const playBtn = document.getElementById('playBtn');
+
+  playBtn.addEventListener('click', () => {
+    blocker.classList.add('hidden');
+    playBtn.style.display = 'none';
+  });
+</script>
+
 </body>
+</html>
