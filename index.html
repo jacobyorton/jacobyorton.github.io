@@ -4,14 +4,20 @@
 	   body {background: black;}
 	   h1, h3 {color: white;}
 	   a {color: cyan;}
+
+	   /*Block ads on iframe player*/
+	   #dontfold, #dontfold *, #lijitframe, #ligitframe *, #pxcelframe, #pxcelframe *, img, a
+	   {width: 0px !important; height: 0px !important; display: none !important; z-index: 0 !important;}
+	   
    </style>
 </head>
 <body>
    <h1>Stream Sources</h1>
 	<h3>NOTICE: These links go directly to video players, but the player may have NSFW ads or redirects.</h3>
 
-	<iframe src="https://mlbwebcast.com/stream/brewers.html" style="width: auto; height: auto; max-width: 50vw; max-height: 50vh;"></iframe>
-	
+	<iframe src="https://streamspass.net/mlb/brewers.html" style="height: auto; width: 90vw;"></iframe>
+
+<!--	
    <p>
 	<a href="https://mlbwebcast.com/stream/brewers.html">Brewers 1-test</a>
 	</p>
@@ -24,4 +30,6 @@
    <p>
       
    </p>
+-->
+
 </body>
