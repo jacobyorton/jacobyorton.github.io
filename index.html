@@ -67,16 +67,25 @@
 <div class="iframe-wrapper">
   <div class="iframe-inner">
     <iframe
-      src="https://gooz.aapmains.net/new-stream-embed/49609"
-<!--      title="Video player"
+      src="https://mlbwebcast.com/stream/brewers.html"
+      title="video player"
       allow="fullscreen"
       allowfullscreen
       sandbox="allow-scripts allow-same-origin allow-presentation"
       scrolling="no"
-      referrerpolicy="no-referrer"> -->
+      referrerpolicy="no-referrer">
     </iframe>
   </div>
 </div>
 
 </body>
+
+<script>
+  const iframe = document.getElementById('myIframe');
+iframe.addEventListener('load', () => {
+    // Logic to reload the iframe
+    iframe.src = iframe.src; 
+}, { once: true });
+</script>
+  
 </html>
