@@ -2,152 +2,49 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Stream Hub</title>
-
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Stream Link</title>
 
 <style>
-  html, body {
+  body {
     margin: 0;
-    height: 100%;
-    background: black;
-    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #0b1b3a; /* navy blue */
     font-family: Arial, sans-serif;
   }
 
-  #container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+  .button {
+    background: #f5c542; /* yellow */
+    color: #111;
+    padding: 18px 28px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
 
-  video {
-    width: 100%;
-    height: 100%;
-    background: black;
+  .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.45);
   }
 
-  #overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.85);
-    color: white;
-    gap: 12px;
-    text-align: center;
-    z-index: 2;
+  .button:active {
+    transform: translateY(0px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   }
-
-  button {
-    padding: 12px 18px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 6px;
-    background: gold;
-  }
-
-  a { color: cyan; }
 </style>
 </head>
 
 <body>
 
-<p>
-      <a href="https://mlbwebcast.com/stream/brewers.html" target="_blank" rel="noopener">
-      Open Backup Stream
-    </a>
-</p>
-  
-<div id="container">
-  <video id="video" controls autoplay></video>
-
-  <div id="overlay">
-    <div id="status">Loading stream...</div>
-    <button id="retryBtn">Retry Stream</button>
-
-    <a href="https://mlbwebcast.com/stream/brewers.html" target="_blank" rel="noopener">
-      Open Backup Stream
-    </a>
-  </div>
-</div>
-
-<script>
-/*
-  👇 PUT YOUR FULL ORIGINAL .m3u8 URL HERE
-*/
-const STREAM_URL = "https://s2.thegamehd.top/auth/130.m3u8?token=rAmPSsZ5znZX1mYrCF39_PnnQzV_N1QgiCBQvA7AtXendkqn7wqmEN3TCDmMUDlgRINBwTB-Bx10-oHfZJqAnxoYh-2A9eKxSz0oH6b7d4iKvRyxQzXTK0ZKQe_At-78i_Yg4fQrVLGaFFhPceR7GxJRvveEGtm_1bTfKwAfQmqTTNMBKCpxXmzRbqpPM2OaiJ9TkBqjzUACqoLBIsGz1yZyAlkghcat8r03iaiM3WicsiAzvk_r_fdj3NEzwCrMy7nCty1NuRTmBjNCN6Ii8rtdppag2Djg_uh1rOpfjPf8v0MjKILVPDnHvRW6W6Aoklfth9rvKRg8tkTkF2JYTPG4kfUlvGCBw2X--8B0QjS-dPmath8BfNo7Eej3RwNqcn2EZu-3w7S1KU4yQDscfzR-T3UsUSV1G5-_19v4IPtnHNcQVi5Jlzh5jLlANAMMc5DFIs29zejyvDTymkAVfO0yfunEa0sK3XhOe3JrFYQl70E893PBnMmHJ51HOHmCfq0tydaQ_CJ9kWlj98vGp73RSae9Fz1qaIpQ_kg5P4552ml5VH0JPLW-lsu-_7JgJJ66oJ81Plcwd7mwA-AewKGD0Q8Vuzg_Hh5Y2sH_P4rOciQ2d2u3oHGV4ntt-9Xl";
-
-const video = document.getElementById('video');
-const overlay = document.getElementById('overlay');
-const status = document.getElementById('status');
-const retryBtn = document.getElementById('retryBtn');
-
-let hls;
-let started = false;
-
-function show(msg) {
-  status.textContent = msg;
-  overlay.style.display = "flex";
-}
-
-function hide() {
-  overlay.style.display = "none";
-}
-
-function startStream() {
-  show("Loading stream...");
-  started = false;
-
-  if (hls) {
-    hls.destroy();
-    hls = null;
-  }
-
-  const watchdog = setTimeout(() => {
-    if (!started) {
-      show("Stream failed to load. Try backup link.");
-    }
-  }, 8000);
-
-  video.addEventListener('playing', () => {
-    started = true;
-    clearTimeout(watchdog);
-    hide();
-  }, { once: true });
-
-  if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = STREAM_URL;
-    video.play().catch(() => {});
-    return;
-  }
-
-  if (Hls.isSupported()) {
-    hls = new Hls();
-    hls.loadSource(STREAM_URL);
-    hls.attachMedia(video);
-
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      video.play().catch(() => {});
-    });
-
-    hls.on(Hls.Events.ERROR, (event, data) => {
-      if (data.fatal) {
-        show("Fatal stream error. Use backup link.");
-      }
-    });
-  } else {
-    show("HLS not supported in this browser.");
-  }
-}
-
-retryBtn.addEventListener('click', startStream);
-startStream();
-</script>
+<a class="button" href="https://mlbwebcast.com/stream/brewers.html" target="_blank" rel="noopener">
+  Watch Stream
+</a>
 
 </body>
 </html>
