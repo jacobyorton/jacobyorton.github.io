@@ -67,17 +67,56 @@
     <a class="lnk" href="https://mlbwebcast.com/stream/brewers.html">Link 5</a>
   </p>
   
-<div class="iframe-wrapper">
-  <div class="iframe-inner">
-    <iframe
-      id="myIframe"
-      src="https://s2.thegamehd.top/auth/130.m3u8?token=rAmPSsZ5znZX1mYrCF39_PnnQzV_N1QgiCBQvA7AtXendkqn7wqmEN3TCDmMUDlgRINBwTB-Bx10-oHfZJqAnxoYh-2A9eKxSz0oH6b7d4iKvRyxQzXTK0ZKQe_At-78i_Yg4fQrVLGaFFhPceR7GxJRvveEGtm_1bTfKwAfQmqTTNMBKCpxXmzRbqpPM2OaiJ9TkBqjzUACqoLBIsGz1yZyAlkghcat8r03iaiM3WicsiAzvk_r_fdj3NEzwCrMy7nCty1NuRTmBjNCN6Ii8rtdppag2Djg_uh1rOpfjPf8v0MjKILVPDnHvRW6W6Aoklfth9rvKRg8tkTkF2JYTPG4kfUlvGCBw2X--8B0QjS-dPmath8BfNo7Eej3RwNqcn2EZu-3w7S1KU4yQDscfzR-T3UsUSV1G5-_19v4IPtnHNcQVi5Jlzh5jLlANAMMc5DFIs29zejyvDTymkAVfO0yfunEa0sK3XhOe3JrFYQl70E893PBnMmHJ51HOHmCfq0tydaQ_CJ9kWlj98vGp73RSae9Fz1qaIpQ_kg5P4552ml5VH0JPLW-lsu-_7JgJJ66oJ81Plcwd7mwA-AewKGD0Q8Vuzg_Hh5Y2sH_P4rOciQ2d2u3oHGV4ntt-9Xl"
-      allowfullscreen
-      scrolling="no">
-    </iframe>
-  </div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stream Player</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+      background: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <video id="video" controls autoplay></video>
+
+  <script>
+  const video = document.getElementById('video');
+
+  const src = "https://s2.thegamehd.top/auth/130.m3u8?token=REDACTED";
+
+  if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    // Safari (native HLS support)
+    video.src = src;
+  } else if (Hls.isSupported()) {
+    // Chrome / Firefox / Edge
+    const hls = new Hls();
+    hls.loadSource(src);
+    hls.attachMedia(video);
+  } else {
+    console.error("HLS not supported in this browser.");
+  }
+  </script>
+
+</body>
+</html>
+  
 </body>
 
 <script>
