@@ -1,130 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jacob's Brewers Stream</title>
-  <link rel="icon" type="image/x-icon" href="https://images.ctfassets.net/iiozhi00a8lc/t158_faviconcut_png/3d48b6725f173b4e775e74bb58c5f3e0/t158_favicon.png">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Stream Hub</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: black;
-      height: 100%;
-      overflow: hidden;
-    }
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-    /* Fullscreen-centered 16:9 container */
-    .iframe-wrapper {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    background: black;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
 
-    .iframe-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      max-width: calc(100vh * (16 / 9));
-      max-height: calc(100vw * (9 / 16));
-      aspect-ratio: 16 / 9;
-    }
+  #container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+  }
 
-    iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
+  video {
+    width: 100%;
+    height: 100%;
+    background: black;
+  }
 
-    .lnk {
-      background: gold;
-      color: blue;
-    }
+  #overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    text-align: center;
+    gap: 12px;
+  }
 
-    /* Nuclear ad blocking inside iframe */
-      iframe #dontfold, iframe #dontfold *, iframe #lijitframe, iframe #ligitframe *, iframe #pxcelframe, iframe #pxcelframe *, iframe img, iframe a {
-      z-index: 0 !important;
-      display: none !important;
-      width: 0 !important;
-      height: 0 !important;
-    }
+  button {
+    padding: 12px 18px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 6px;
+  }
 
-  </style>
+  .primary {
+    background: gold;
+    color: black;
+  }
+
+  .secondary {
+    background: #444;
+    color: white;
+  }
+
+  a {
+    color: cyan;
+  }
+</style>
 </head>
 
 <body>
-  <p style="color: white;">Stream Links: 
-    <a class="lnk" href="https://gooz.aapmains.net/new-stream-embed/49609">Link 1</a> ---------- 
-    <a class="lnk" href="https://mlbwebcast.com/stream/brewers.html">Link 2</a> ---------- 
-    <a class="lnk" href="https://streamspass.net/mlb/brewers.html">Link 3</a> ----------
-    <a class="lnk" href="https://sportspass.zip/mlb/brewers.html">Link 4</a> ----------
-    <a class="lnk" href="https://mlbwebcast.com/stream/brewers.html">Link 5</a>
-  </p>
-  
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stream Player</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background: black;
-      overflow: hidden;
-    }
-
-    video {
-      width: 100vw;
-      height: 100vh;
-      background: black;
-    }
-  </style>
-</head>
-
-<body>
+<div id="container">
 
   <video id="video" controls autoplay></video>
 
-  <script>
-  const video = document.getElementById('video');
+  <div id="overlay">
+    <div id="status">Loading stream...</div>
 
-  const src = "https://s2.thegamehd.top/auth/130.m3u8?token=REDACTED";
+    <button class="primary" id="retryBtn">Retry Stream</button>
 
-  if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    // Safari (native HLS support)
-    video.src = src;
-  } else if (Hls.isSupported()) {
-    // Chrome / Firefox / Edge
-    const hls = new Hls();
-    hls.loadSource(src);
-    hls.attachMedia(video);
-  } else {
-    console.error("HLS not supported in this browser.");
-  }
-  </script>
+    <a class="secondary" href="https://mlbwebcast.com/stream/brewers.html" target="_blank" rel="noopener">
+      Open Backup Stream
+    </a>
+  </div>
 
-</body>
-</html>
-  
-</body>
+</div>
 
 <script>
-  const iframe = document.getElementById('myIframe');
-iframe.addEventListener('load', () => {
-    // Logic to reload the iframe
-    iframe.src = iframe.src; 
-}, { once: true });
+const STREAM_URL = "https://s2.thegamehd.top/auth/130.m3u8?token=REDACTED";
+
+const video = document.getElementById('video');
+const overlay = document.getElementById('overlay');
+const status = document.getElementById('status');
+const retryBtn = document.getElementById('retryBtn');
+
+let hls;
+
+function showOverlay(msg) {
+  status.textContent = msg;
+  overlay.style.display = "flex";
+}
+
+function hideOverlay() {
+  overlay.style.display = "none";
+}
+
+function loadStream() {
+  showOverlay("Loading stream...");
+
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  // Safari native HLS
+  if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = STREAM_URL;
+    video.play().catch(() => {});
+    hideOverlay();
+    return;
+  }
+
+  // HLS.js for Chrome/Firefox
+  if (Hls.isSupported()) {
+    hls = new Hls();
+
+    hls.loadSource(STREAM_URL);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play().catch(() => {});
+      hideOverlay();
+    });
+
+    hls.on(Hls.Events.ERROR, function (event, data) {
+      console.error("HLS error:", data);
+
+      showOverlay("Stream failed to load. Try backup link below.");
+    });
+
+  } else {
+    showOverlay("HLS not supported in this browser.");
+  }
+}
+
+retryBtn.addEventListener('click', loadStream);
+
+loadStream();
 </script>
-  
+
+</body>
 </html>
